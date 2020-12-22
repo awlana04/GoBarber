@@ -1,13 +1,38 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import User from './User';
 
 @Entity('appointments')
-export default class Appointment {
+class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider: string;
+  // eslint-disable-next-line camelcase
+  provider_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User;
 
   @Column('timestamp with time zone')
   date: Date;
+
+  @CreateDateColumn()
+  // eslint-disable-next-line camelcase
+  create_at: Date;
+
+  @UpdateDateColumn()
+  // eslint-disable-next-line camelcase
+  updated_at: Date;
 }
+
+export default Appointment;
