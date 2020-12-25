@@ -9,28 +9,45 @@ import Logo from '../../assets/logo.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import { useAuth } from '../../context/AuthContext';
+
 import { Container, Content, Background } from './styles';
+
+interface SignInFormData {
+  email: string;
+  password: string;
+}
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      const schema = Yup.object().shape({
-        email: Yup.string().required().email(),
-        password: Yup.string().required(),
-      });
+  const { signIn } = useAuth();
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      formRef.current?.setErrors({
-        email: 'E-mail obrigatório',
-        password: 'Senha obrigatória',
-      });
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string().required().email(),
+          password: Yup.string().required(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        formRef.current?.setErrors({
+          email: 'E-mail obrigatório',
+          password: 'Senha obrigatória',
+        });
+      }
+    },
+    [signIn],
+  );
 
   return (
     <Container>
