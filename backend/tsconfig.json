@@ -43,15 +43,19 @@
 
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": ".",                           /* Base directory to resolve non-absolute module names. */
+    "baseUrl": "./src",                           /* Base directory to resolve non-absolute module names. */
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
-      "@views/*": ["./src/views/*"],
-      "@repositories/*": ["./src/repositories/*"],
-      "@services/*": ["./src/services/*"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@config/*": ["./src/config/*"]
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
+      "@appointmentsEntitie/*": ["modules/appointments/infra/typeorm/entities/*"],
+      "@usersEntitie/*": ["modules/users/infra/typeorm/entities/*"],
+      "@appointmentsServices/*": ["modules/appointments/services/*"],
+      "@usersServices/*": ["modules/users/services/*"],
+      "@appointmentsRepository/*": ["modules/appointments/repositories/*"],
+      "@appointmentsRoutes/*": ["modules/appointments/infra/http/routes/*"],
+      "@usersRoutes/*": ["modules/users/infra/http/routes/*"],
+      "@middlewares/*": ["modules/users/infra/http/middlewares/*"]
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

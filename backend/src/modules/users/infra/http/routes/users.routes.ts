@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import CreateUserService from '@services/CreateUserService';
-import UpdateUserAvatarService from '@services/UpdateUserAvatarService';
+import CreateUserService from '@userServices/CreateUserService';
+import UpdateUserAvatarService from '@userServices/UpdateUserAvatarService';
 
 import ensureAuthenticated from '@middlewares/ensureAuthenticated';
 import uploadConfig from '@config/upload';
