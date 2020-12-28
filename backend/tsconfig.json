@@ -52,7 +52,7 @@
       "@usersEntitie/*": ["modules/users/infra/typeorm/entities/*"],
       "@appointmentsServices/*": ["modules/appointments/services/*"],
       "@usersServices/*": ["modules/users/services/*"],
-      "@appointmentsRepository/*": ["modules/appointments/repositories/*"],
+      "@appointmentsRepository/*": ["modules/appointments/infra/typeorm/repositories/*"],
       "@appointmentsRoutes/*": ["modules/appointments/infra/http/routes/*"],
       "@usersRoutes/*": ["modules/users/infra/http/routes/*"],
       "@middlewares/*": ["modules/users/infra/http/middlewares/*"]

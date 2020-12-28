@@ -6,7 +6,6 @@ import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointment
 
 import Appointment from '@appointmentsEntitie/Appointment';
 
-@EntityRepository(Appointment)
 class AppointmentsRepository implements IAppointmentRepository {
   private ormRepository: Repository<Appointment>;
 
