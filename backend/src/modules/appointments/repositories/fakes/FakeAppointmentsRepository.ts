@@ -1,10 +1,10 @@
 import { uuid } from 'uuidv4';
 
-import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
-
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 
 import Appointment from '@appointmentsEntitie/Appointment';
+
+import IAppointmentRepository from '../IAppointmentsRepository';
 
 class AppointmentsRepository implements IAppointmentRepository {
   private appointments: Appointment[] = [];
