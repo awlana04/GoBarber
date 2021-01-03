@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 
-import User from '@usersEntitie/User';
+// import User from '@usersEntitie/User';
 
 import AppError from '@shared/errors/AppError';
 
@@ -19,8 +19,10 @@ class ResetPasswordService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokensRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
