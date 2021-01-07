@@ -22,7 +22,7 @@ class ListProviderDayAvailabilityService {
     private appointmentsRepository: IAppointmentsRepository,
   ) {}
 
-  private async execute({
+  public async execute({
     provider_id,
     day,
     month,
