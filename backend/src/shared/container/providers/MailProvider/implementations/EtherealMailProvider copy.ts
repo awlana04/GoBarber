@@ -1,10 +1,11 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import { injectable, inject } from 'tsyringe';
 
-import ISendMailDTO from '../dtos/ISendMailDTO';
 import IMailProvider from '../models/IMailProvider';
 
-import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
+import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
+
+import ISendMailDTO from '../dtos/ISendMailDTO';
 
 @injectable()
 export default class EtherealMailProvider implements IMailProvider {
@@ -24,8 +25,6 @@ export default class EtherealMailProvider implements IMailProvider {
           pass: account.pass,
         },
       });
-
-      console.log(account);
 
       this.client = transporter;
     });
@@ -50,7 +49,7 @@ export default class EtherealMailProvider implements IMailProvider {
       html: await this.mailTemplateProvider.parse(templateData),
     });
 
-    console.log('Message sent: ', message.messageId);
-    console.log('Preview URL:', nodemailer.getTestMessageUrl(message));
+    console.log('Message sent: %s', message.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
   }
 }

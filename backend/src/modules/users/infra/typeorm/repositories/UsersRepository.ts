@@ -5,7 +5,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
-import User from '@usersEntitie/User';
+import User from '../entities/User';
 
 class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
@@ -22,7 +22,9 @@ class UsersRepository implements IUsersRepository {
 
   public async findByEmail(email: string): Promise<User | undefined> {
     const user = await this.ormRepository.findOne({
-      where: { email },
+      where: {
+        email,
+      },
     });
 
     return user;

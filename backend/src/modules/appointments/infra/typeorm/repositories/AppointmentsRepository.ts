@@ -1,12 +1,12 @@
 import { getRepository, Repository, Raw } from 'typeorm';
 
-import Appointment from '@appointmentsEntitie/Appointment';
+import Appointment from '../entities/Appointment';
 
 import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
-import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
 import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/IFindAllInMonthFromProviderDTO';
+import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
 
 class AppointmentsRepository implements IAppointmentRepository {
   private ormRepository: Repository<Appointment>;
@@ -15,9 +15,12 @@ class AppointmentsRepository implements IAppointmentRepository {
     this.ormRepository = getRepository(Appointment);
   }
 
-  public async findByDate(date: Date): Promise<Appointment | undefined> {
+  public async findByDate(
+    date: Date,
+    provider_id: string,
+  ): Promise<Appointment | undefined> {
     const findAppointment = await this.ormRepository.findOne({
-      where: { date },
+      where: { date, provider_id },
     });
 
     return findAppointment;
@@ -60,6 +63,7 @@ class AppointmentsRepository implements IAppointmentRepository {
             `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
         ),
       },
+      relations: ['user'], // -> utiliza eager Loading (Realizando apenas 1 query no banco)
     });
 
     return appointments;

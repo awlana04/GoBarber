@@ -18,6 +18,7 @@ passwordRouter.post(
   }),
   forgotPasswordController.create,
 );
+
 passwordRouter.post(
   '/reset',
   celebrate({
