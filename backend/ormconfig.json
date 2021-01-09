@@ -18,7 +18,7 @@
     }
   },
   {
-    "name": "mongodb",
+    "name": "mongo",
     "type": "mongodb",
     "host": "localhost",
     "port": 27017,

@@ -5,7 +5,7 @@ import Appointment from '../infra/typeorm/entities/Appointment';
 
 import AppError from '@shared/errors/AppError';
 
-import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
@@ -20,7 +20,7 @@ interface IRequest {
 class CreateAppointmentService {
   constructor(
     @inject('AppointmentsRepository')
-    private appointmentsRepository: IAppointmentRepository,
+    private appointmentsRepository: IAppointmentsRepository,
 
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
