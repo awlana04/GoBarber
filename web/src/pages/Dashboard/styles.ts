@@ -187,6 +187,10 @@ export const Section = styled.section`
 
     display: block;
   }
+
+  > p {
+    color: #999591;
+  }
 `;
 
 export const Appointment = styled.div`
@@ -198,6 +202,7 @@ export const Appointment = styled.div`
   }
 
   span {
+    width: 70px;
     margin-left: auto;
 
     color: #f4ede8;
