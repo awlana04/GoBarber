@@ -4,16 +4,30 @@ import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
+import { useFonts } from 'expo-font';
+import { RobotoSlab_400Regular, RobotoSlab_500Medium } from '@expo-google-fonts/roboto-slab';
+
 import Routes from './src/routes';
 
-const App: React.FC = () => (
-  <NavigationContainer>
-    <StatusBar barStyle="light-content" />
+const App: React.FC = () => {
+  const [fontsLoaded] = useFonts({
+    RobotoSlab_400Regular,
+    RobotoSlab_500Medium
+  });
 
-    <View style={{ flex: 1, backgroundColor: '#312e38' }}>
-      <Routes />
-    </View>
-  </NavigationContainer>
-);
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <NavigationContainer>
+      <StatusBar barStyle="light-content" />
+
+      <View style={{ flex: 1, backgroundColor: '#312e38' }}>
+        <Routes />
+      </View>
+    </NavigationContainer>
+  );
+}
 
 export default App;
