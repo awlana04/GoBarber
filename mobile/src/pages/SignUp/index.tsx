@@ -17,6 +17,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import api from '../../services/api';
+
 import Logo from '../../assets/logo.png';
 
 import {
@@ -52,7 +54,14 @@ const SignUp: React.FC = () => {
           abortEarly: false,
         });
 
-        // await api.post('/users', data);
+        await api.post('/users', data);
+
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer login na aplicação!'
+          );
+
+        navigation.goBack();
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           formRef.current?.setErrors({
@@ -68,7 +77,7 @@ const SignUp: React.FC = () => {
         )
       }
     },
-    [],
+    [navigation],
   );
 
   return (
@@ -114,6 +123,7 @@ const SignUp: React.FC = () => {
               <Input
                 ref={passwordInputRef}
                 textContentType="newPassword"
+                autoCapitalize="none"
                 name="password"
                 icon="lock"
                 placeholder="Senha"

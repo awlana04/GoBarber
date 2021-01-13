@@ -17,6 +17,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+import { useAuth } from '../../hooks/auth';
+
 import Logo from '../../assets/logo.png';
 
 import {
@@ -39,6 +41,8 @@ const SignIn: React.FC = () => {
 
   const navigation = useNavigation();
 
+  const { signIn } = useAuth();
+
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
       try {
@@ -51,10 +55,10 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        // await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           formRef.current?.setErrors({
@@ -69,8 +73,9 @@ const SignIn: React.FC = () => {
         );
       }
     },
-    [],
+    [signIn],
   );
+
   return (
     <>
       <KeyboardAvoidingView
@@ -106,6 +111,7 @@ const SignIn: React.FC = () => {
 
               <Input
                 ref={passwordInputRef}
+                autoCapitalize="none"
                 name="password"
                 icon="lock"
                 placeholder="Senha"
