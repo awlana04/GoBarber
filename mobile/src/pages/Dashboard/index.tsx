@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth();
 
   useEffect(() => {
-    api.get('providers').then(response => {
+    api.get('providers').then((response) => {
       setProviders(response.data);
     });
   }, []);
