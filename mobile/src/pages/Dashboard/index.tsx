@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
       <Header>
         <HeaderTitle>
           Bem-vindo, {'\n'}
-          <UserName>{user.name}</UserName>
+          <UserName onPress={() => signOut()}>{user.name}</UserName>
         </HeaderTitle>
 
         <ProfileButton onPress={navigateToProfile}>
