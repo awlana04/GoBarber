@@ -50,6 +50,10 @@ interface AvailabilityItem {
 
 const CreateAppointment: React.FC = () => {
   const route = useRoute();
+  const { goBack, navigate } = useNavigation();
+
+  const { user } = useAuth();
+
   const routeParams = route.params as RouteParams;
 
   const [providers, setProviders] = useState<Provider[]>([]);
@@ -61,10 +65,6 @@ const CreateAppointment: React.FC = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState(0);
-
-  const { goBack, navigate } = useNavigation();
-
-  const { user } = useAuth();
 
   useEffect(() => {
     api.get('providers').then((response) => {
