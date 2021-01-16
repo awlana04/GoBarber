@@ -14,10 +14,10 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { useAuth } from '../../hooks/auth';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-
-import { useAuth } from '../../hooks/auth';
 
 import Logo from '../../assets/logo.png';
 
