@@ -134,8 +134,6 @@ const Profile: React.FC = () => {
         'Acesso negado!',
         'É necessário permitir acesso à sua galeria para atualizar o avatar'
       );
-
-      return;
     }
 
     const pickerImage = await ImagePicker.launchImageLibraryAsync();
@@ -144,7 +142,7 @@ const Profile: React.FC = () => {
       return;
     }
 
-    setSelectedImage({ uri: pickerImage.uri });
+    // setSelectedImage({ uri: pickerImage.uri });
   }, []);
 
   return (
