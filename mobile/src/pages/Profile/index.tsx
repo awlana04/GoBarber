@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const passwordConfirmationInputRef = useRef<TextInput>(null);
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [avatar, setAvatar] = useState<string>();
 
   const navigation = useNavigation();
 
@@ -127,23 +127,41 @@ const Profile: React.FC = () => {
   }, [navigation]);
 
   const handleUpdateAvatar = useCallback(async () => {
-    const pickerPermission = await ImagePicker.requestCameraPermissionsAsync();
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
 
-    if (pickerPermission.granted === false) {
+    if (status !== 'granted') {
       Alert.alert(
         'Acesso negado!',
         'É necessário permitir acesso à sua galeria para atualizar o avatar'
       );
     }
 
-    const pickerImage = await ImagePicker.launchImageLibraryAsync();
+    const pickerImage = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    });
 
-    if (pickerImage.cancelled === true) {
+    if (pickerImage.cancelled) {
       return;
     }
 
-    // setSelectedImage({ uri: pickerImage.uri });
-  }, []);
+    const { uri: avatar } = pickerImage;
+
+    setAvatar(avatar);
+
+    const data = new FormData();
+
+    data.append('avatar', {
+      type: 'image/jpg',
+      name: `${user.id}.jpg`,
+      uri: avatar,
+    } as any);
+
+    api.patch('users/avatar', data).then((response) => {
+      updateUser(response.data);
+    });
+  }, [user.id, updateUser]);
 
   return (
     <>
