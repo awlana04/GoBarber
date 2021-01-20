@@ -1,7 +1,6 @@
 {
   "env": {
-    "es2021": true,
-    "browser": true,
+    "es2021": true
   },
   "extends": [
     "airbnb",
@@ -26,6 +25,7 @@
     "prettier"
   ],
   "rules": {
+    "camelcase": "off",
     "no-unused-expressions": "off",
     "no-use-before-define": "off",
     "prettier/prettier": "error",
@@ -36,6 +36,7 @@
     "react/prop-types": "off",
     "@typescript-eslint/ban-types": "off",
     "import/prefer-default-export": "off",
+    "import/no-duplicates": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
