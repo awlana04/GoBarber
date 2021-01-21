@@ -13,13 +13,14 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
-import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
-import * as Yup from 'yup';
+import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/Feather';
 
+import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -36,9 +37,8 @@ import {
   UserInitialsContainer,
   UserInitials,
 } from './styles';
-import { useAuth } from '../../hooks/auth';
 
-interface IProfileFormData {
+interface ProfileFormData {
   name: string;
   email: string;
   old_password: string;
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
   const confirmPasswordInputRef = useRef<TextInput>(null);
 
   const handleUpdateProfile = useCallback(
-    async (data: IProfileFormData) => {
+    async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
 
@@ -68,13 +68,13 @@ const Profile: React.FC = () => {
             .required('E-mail obrigatório'),
           old_password: Yup.string(),
           password: Yup.string().when('old_password', {
-            is: val => !!val.length,
+            is: (val) => !!val.length,
             then: Yup.string().required('Senha é obrigatória'),
             otherwise: Yup.string(),
           }),
           password_confirmation: Yup.string()
             .when('old_password', {
-              is: val => !!val.length,
+              is: (val) => !!val.length,
               then: Yup.string().required('Confimação de senha é obrigatória'),
               otherwise: Yup.string(),
             })
@@ -134,20 +134,18 @@ const Profile: React.FC = () => {
   );
 
   const handleUpdateAvatar = useCallback(() => {
-    ImagePicker.showImagePicker(
+    ImagePicker.launchImageLibrary(
       {
-        title: 'Selecione um avatar',
-        cancelButtonTitle: 'Cancelar',
-        takePhotoButtonTitle: 'Usar câmera',
-        chooseFromLibraryButtonTitle: 'Escolha da galeria',
+        quality: 1,
+        mediaType: 'photo',
       },
-      response => {
+      (response) => {
         if (response.didCancel) {
           return;
         }
 
-        if (response.error) {
-          Alert.alert('Erro ao atualizar seu avatar');
+        if (response.errorCode) {
+          Alert.alert('Erro ao atualizar sua foto de perfil');
           return;
         }
 
@@ -159,17 +157,17 @@ const Profile: React.FC = () => {
           uri: response.uri,
         });
 
-        api.patch('/users/avatar', data).then(apiResponse => {
+        api.patch('/users/avatar', data).then((apiResponse) => {
           updateUser(apiResponse.data);
         });
       },
     );
-  }, [updateUser, user.id]);
+  }, [user.id, updateUser]);
 
   const nameInitials = useMemo(() => {
     return user.name
       .split(' ')
-      .map(name => name.charAt(0).toUpperCase())
+      .map((name) => name.charAt(0).toUpperCase())
       .join('')
       .substring(0, 2);
   }, [user.name]);
@@ -223,6 +221,7 @@ const Profile: React.FC = () => {
                   emailInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={emailInputRef}
                 autoCorrect={false}
@@ -236,6 +235,7 @@ const Profile: React.FC = () => {
                   oldPasswordInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={oldPasswordInputRef}
                 secureTextEntry
@@ -249,6 +249,7 @@ const Profile: React.FC = () => {
                   passwordInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={passwordInputRef}
                 secureTextEntry
@@ -261,6 +262,7 @@ const Profile: React.FC = () => {
                   confirmPasswordInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={confirmPasswordInputRef}
                 secureTextEntry

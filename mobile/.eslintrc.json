@@ -26,6 +26,7 @@
   ],
   "rules": {
     "camelcase": "off",
+    "no-shadow": "off",
     "no-unused-expressions": "off",
     "no-use-before-define": "off",
     "prettier/prettier": "error",

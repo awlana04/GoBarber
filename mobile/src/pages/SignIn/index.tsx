@@ -9,20 +9,20 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
-
 import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
+import Icon from 'react-native-vector-icons/Feather';
 
 import { useAuth } from '../../hooks/auth';
-
-import logo from '../../assets/logo.png';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+
+import logo from '../../assets/logo.png';
 
 import {
   Container,
@@ -34,13 +34,14 @@ import {
   CreateAccountButtonText,
 } from './styles';
 
-interface ISignInFormData {
+interface SignInFormData {
   email: string;
   password: string;
 }
 
 const SignIn: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
+
   const navigation = useNavigation();
 
   const { signIn } = useAuth();
@@ -48,12 +49,11 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
-
-  const keyboardDidHide = useCallback((): void => setIsHidden(false), []);
+  // const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
+  // const keyboardDidHide = useCallback((): void => setIsHidden(false), []);
 
   const handleSignIn = useCallback(
-    async (data: ISignInFormData) => {
+    async (data: SignInFormData) => {
       try {
         formRef.current?.setErrors({});
 
@@ -90,16 +90,16 @@ const SignIn: React.FC = () => {
     [signIn],
   );
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+  // useEffect(() => {
+  //   Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+  //   Keyboard.addListener('keyboardDidHide', keyboardDidHide);
 
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
-    };
-  }, []);
+  //   // cleanup function
+  //   return () => {
+  //     Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+  //     Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
+  //   };
+  // }, [keyboardDidShow, keyboardDidHide]);
 
   return (
     <>
@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
               <Title>Faça seu logon</Title>
             </View>
 
-            <UnForm ref={formRef} onSubmit={handleSignIn}>
+            <Form ref={formRef} onSubmit={handleSignIn}>
               <Input
                 autoCorrect={false}
                 autoCapitalize="none"
@@ -152,7 +152,7 @@ const SignIn: React.FC = () => {
               >
                 Entrar
               </Button>
-            </UnForm>
+            </Form>
 
             <ForgotPassword>
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
@@ -161,12 +161,12 @@ const SignIn: React.FC = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      {!isHidden && (
+      {/* {!isHidden && (
         <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
           <Icon name="log-in" size={20} color="#ff9000" />
           <CreateAccountButtonText>Criar um conta</CreateAccountButtonText>
         </CreateAccountButton>
-      )}
+      )} */}
     </>
   );
 };

@@ -6,18 +6,19 @@ import React, {
   useEffect,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+
 import api from '../services/api';
 
-interface IUser {
+interface User {
   id: string;
   name: string;
   email: string;
   avatar_url: string;
 }
 
-interface IAuthState {
+interface AuthState {
   token: string;
-  user: IUser;
+  user: User;
 }
 
 interface ISignInCredentials {
@@ -25,18 +26,18 @@ interface ISignInCredentials {
   password: string;
 }
 
-interface IAuthContextData {
-  user: IUser;
+interface AuthContextData {
+  user: User;
   loading: boolean;
   signIn(credentials: ISignInCredentials): Promise<void>;
   signOut(): void;
-  updateUser(user: IUser): Promise<void>;
+  updateUser(user: User): Promise<void>;
 }
 
-const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<IAuthState>({} as IAuthState);
+  const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -79,11 +80,11 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
 
-    setData({} as IAuthState);
+    setData({} as AuthState);
   }, []);
 
   const updateUser = useCallback(
-    async (user: IUser) => {
+    async (user: User) => {
       await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
       setData({
@@ -103,7 +104,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-function useAuth(): IAuthContextData {
+function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {

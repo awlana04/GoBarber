@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import Icon from 'react-native-vector-icons/Feather';
 
-import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Container,
   Title,
@@ -12,15 +12,15 @@ import {
   OkButtonText,
 } from './styles';
 
-interface IRouteParams {
+interface RouteParams {
   date: number;
 }
 
 const AppointmentCreated: React.FC = () => {
   const { reset } = useNavigation();
-  const { params } = useRoute();
 
-  const { date } = params as IRouteParams;
+  const { params } = useRoute();
+  const { date } = params as RouteParams;
 
   const handleOkPressed = useCallback(() => {
     reset({

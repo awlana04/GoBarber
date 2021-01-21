@@ -9,13 +9,11 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
-import * as Yup from 'yup';
-
-import logo from '../../assets/logo.png';
+import Icon from 'react-native-vector-icons/Feather';
 
 import api from '../../services/api';
 
@@ -23,6 +21,8 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+
+import logo from '../../assets/logo.png';
 
 import {
   Container,
@@ -39,15 +39,16 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
+
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
+
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
-
-  const keyboardDidHide = useCallback((): void => setIsHidden(false), []);
+  // const keyboardDidShow = useCallback((): void => setIsHidden(true), []);
+  // const keyboardDidHide = useCallback((): void => setIsHidden(false), []);
 
   const handleSignIn = useCallback(
     async (data: SignUpFormData) => {
@@ -84,7 +85,7 @@ const SignUp: React.FC = () => {
         }
 
         Alert.alert(
-          'Erro np cadastro',
+          'Erro no cadastro',
           'Ocorreu um erro ao fazer cadastro, tente novamente',
         );
       }
@@ -92,16 +93,16 @@ const SignUp: React.FC = () => {
     [navigation],
   );
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', keyboardDidHide);
+  // useEffect(() => {
+  //   Keyboard.addListener('keyboardDidShow', keyboardDidShow);
+  //   Keyboard.addListener('keyboardDidHide', keyboardDidHide);
 
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
-    };
-  }, [keyboardDidHide, keyboardDidShow]);
+  //   // cleanup function
+  //   return () => {
+  //     Keyboard.removeListener('keyboardDidShow', keyboardDidShow);
+  //     Keyboard.removeListener('keyboardDidHide', keyboardDidHide);
+  //   };
+  // }, [keyboardDidHide, keyboardDidShow]);
 
   return (
     <>
@@ -132,6 +133,7 @@ const SignUp: React.FC = () => {
                   emailInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={emailInputRef}
                 autoCorrect={false}
@@ -145,6 +147,7 @@ const SignUp: React.FC = () => {
                   passwordInputRef.current?.focus();
                 }}
               />
+
               <Input
                 ref={passwordInputRef}
                 secureTextEntry
@@ -170,12 +173,12 @@ const SignUp: React.FC = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      {!isHidden && (
+      {/* {!isHidden && (
         <BackToSignInButton onPress={() => navigation.navigate('SignIn')}>
           <Icon name="arrow-left" size={20} color="#fff" />
           <BackToSignInButtonText>Voltar para logon</BackToSignInButtonText>
         </BackToSignInButton>
-      )}
+      )} */}
     </>
   );
 };
