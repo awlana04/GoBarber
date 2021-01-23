@@ -6,6 +6,7 @@ import ListProviderAppointmentsService from '@modules/appointments/services/List
 
 export default class AppointmentsController {
   public async index(request: Request, response: Response): Promise<Response> {
+    // Take the provider id
     const provider_id = request.user.id;
     const { day, month, year } = request.query;
 
@@ -13,6 +14,8 @@ export default class AppointmentsController {
       ListProviderAppointmentsService,
     );
 
+    // Show all the appointments for that provider
+    // Ordernated by day, month and year
     const appointments = await listProviderAppointment.execute({
       provider_id,
       year: Number(year),

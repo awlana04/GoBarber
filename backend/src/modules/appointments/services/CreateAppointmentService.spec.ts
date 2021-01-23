@@ -2,28 +2,35 @@ import AppError from '@shared/errors/AppError';
 
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
+
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
+
 import CreateAppointmentService from './CreateAppointmentService';
 import CreateUsersService from '../../users/services/CreateUserService';
 
 let fakeNotificationsRepository: FakeNotificationsRepository;
-let fakeAppointmentsRepository: FakeAppointmentsRepository;
-let fakeUsersRepository: FakeUsersRepository;
 let fakeCacheProvider: FakeCacheProvider;
+
 let fakeHashProvider: FakeHashProvider;
+
+let fakeUsersRepository: FakeUsersRepository;
+let fakeAppointmentsRepository: FakeAppointmentsRepository;
 
 let createAppointment: CreateAppointmentService;
 let createUser: CreateUsersService;
 
 describe('CreateAppointment', () => {
   beforeEach(() => {
+    fakeNotificationsRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
+
+    fakeHashProvider = new FakeHashProvider();
+
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     fakeUsersRepository = new FakeUsersRepository();
-    fakeHashProvider = new FakeHashProvider();
-    fakeCacheProvider = new FakeCacheProvider();
-    fakeNotificationsRepository = new FakeNotificationsRepository();
 
     createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,

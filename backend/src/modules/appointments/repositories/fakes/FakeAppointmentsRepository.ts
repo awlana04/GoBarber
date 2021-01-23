@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 import { isEqual, getMonth, getYear, getDate } from 'date-fns';
 
 import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
+
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/IFindAllInMonthFromProviderDTO';
 import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
@@ -15,6 +16,12 @@ class AppointmentsRepository implements IAppointmentRepository {
     date: Date,
     provider_id: string,
   ): Promise<Appointment | undefined> {
+    /*
+      Find all appointments for the provider
+      Checking if the appointment's date and provider's id are equal
+      To the one we will pass
+    */
+
     const findAppointment = this.appointments.find(
       appointment =>
         isEqual(appointment.date, date) &&
@@ -29,6 +36,8 @@ class AppointmentsRepository implements IAppointmentRepository {
     month,
     year,
   }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
+    // Find all appointments of the selected month
+    // Checking if the appointment's date is equal to the one we will pass
     const appointments = this.appointments.filter(
       appointment =>
         appointment.provider_id === provider_id &&
@@ -45,6 +54,8 @@ class AppointmentsRepository implements IAppointmentRepository {
     month,
     year,
   }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
+    // Find all appointments of the selected day with its hours
+    // Checking if the appointment's date hour is equal to the ones we will pass
     const appointments = this.appointments.filter(
       appointment =>
         appointment.provider_id === provider_id &&
@@ -62,6 +73,12 @@ class AppointmentsRepository implements IAppointmentRepository {
     date,
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = new Appointment();
+
+    /*
+      Try to create a brand-new fake appointment passing the data
+      First of all, create an id for this new appointment with 'uuid
+      And than pass provider's id, user's id and date.
+    */
 
     Object.assign(appointment, { id: uuid(), date, provider_id, user_id });
 

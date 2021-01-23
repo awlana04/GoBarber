@@ -5,10 +5,10 @@ import Appointment from '../infra/typeorm/entities/Appointment';
 
 import AppError from '@shared/errors/AppError';
 
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 interface IRequest {
   provider_id: string;
