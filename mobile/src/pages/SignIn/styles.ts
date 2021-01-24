@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Container = styled.View`
-  padding: 0 30px;
+  padding: 0 30px ${Platform.OS === 'android' ? 75 : 40}px;
 
   flex: 1;
 
@@ -11,7 +12,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  margin: 64px 0 24px;
+  margin: 34px 0 20px;
 
   color: #f4ede8;
   font-size: 24px;

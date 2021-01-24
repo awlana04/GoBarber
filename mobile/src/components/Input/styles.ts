@@ -4,8 +4,8 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 export const Container = styled.View`
   width: 100%;
   height: 60px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   padding: 0 16px;
 
   background: #232129;
