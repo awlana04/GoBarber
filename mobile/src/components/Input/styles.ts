@@ -15,7 +15,7 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const TextInput = styled.Text`
+export const TextInput = styled.TextInput`
   color: #fff;
   font-size: 16px;
   font-family: 'RobotoSlab-Regular';
