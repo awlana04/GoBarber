@@ -1356,7 +1356,7 @@
 
 "@types/react-native-vector-icons@^6.4.6":
   version "6.4.6"
-  resolved "https://registry.npmjs.org/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.6.tgz"
+  resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.6.tgz#848e3b14572def56212cafbf5cb1254b445bfb41"
   integrity sha512-lAyxNfMd5L1xZvXWsGcJmNegDf61TAp40uL6ashNNWj9W3IrDJO59L9+9inh0Y2MsEZpLTdxzVU8Unb4/0FQng==
   dependencies:
     "@types/react" "*"
@@ -6412,7 +6412,7 @@ react-native-screens@^2.15.2:
 
 react-native-vector-icons@^8.0.0:
   version "8.0.0"
-  resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-8.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-8.0.0.tgz#deb8b344ff68ea67f4659c8de493fef8a9e717d2"
   integrity sha512-u3NWvO+b7nTCxx7IU4EzukFyiApHdpjbsjKgMFEI2Ma+r1Mq48s0ajvBCIPI7LCgKBGYclOxWmMV9DHV2cJFlw==
   dependencies:
     lodash.frompairs "^4.0.1"
