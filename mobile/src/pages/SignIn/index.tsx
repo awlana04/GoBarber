@@ -14,6 +14,8 @@ import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { useAuth } from '../../hooks/auth';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -40,6 +42,8 @@ const SignIn: React.FC = () => {
 
   const { navigate } = useNavigation();
 
+  const { signIn } = useAuth();
+
   const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
       const schema = Yup.object().shape({
@@ -51,10 +55,10 @@ const SignIn: React.FC = () => {
         abortEarly: false,
       });
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         formRef.current?.setErrors({

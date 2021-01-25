@@ -14,6 +14,8 @@ import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/Feather';
 
+import api from '../../services/api';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -35,34 +37,44 @@ const SignUp: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const handleSubmit = useCallback(async (data: SignUpFormData) => {
-    try {
-      const schema = Yup.object().shape({
-        name: Yup.string().required(),
-        email: Yup.string().required().email(),
-        password: Yup.string().min(6),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      // await api.post('/users', data);
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        formRef.current?.setErrors({
-          name: 'Nome obrigatório',
-          email: 'E-mail obrigatório',
-          password: 'No mínimo 6 dígitos',
+  const handleSubmit = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required(),
+          email: Yup.string().required().email(),
+          password: Yup.string().min(6),
         });
-      }
 
-      Alert.alert(
-        'Erro no cadastro',
-        'Ocorreu um erro ao fazer cadastro, tente novamente.',
-      );
-    }
-  }, []);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/users', data);
+
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer seu logon na aplicação.',
+        );
+
+        navigation.goBack();
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          formRef.current?.setErrors({
+            name: 'Nome obrigatório',
+            email: 'E-mail obrigatório',
+            password: 'No mínimo 6 dígitos',
+          });
+        }
+
+        Alert.alert(
+          'Erro no cadastro',
+          'Ocorreu um erro ao fazer cadastro, tente novamente.',
+        );
+      }
+    },
+    [navigation],
+  );
   return (
     <>
       <KeyboardAvoidingView
