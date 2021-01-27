@@ -13,6 +13,7 @@ import {
   ProfileButton,
   UserAvatar,
   ProvidersList,
+  ProvidersListTitle,
   ProviderContainer,
   ProviderAvatar,
   ProviderInfo,
@@ -43,6 +44,13 @@ const Dashboard: React.FC = () => {
   const navigateToProfile = useCallback(() => {
     navigate('Profile');
   }, [navigate]);
+
+  const navigateToCreateAppointment = useCallback(
+    (providerId: string) => {
+      navigate('CreateAppointment', { providerId });
+    },
+    [navigate],
+  );
   return (
     <Container>
       <Header>
@@ -58,10 +66,15 @@ const Dashboard: React.FC = () => {
       </Header>
 
       <ProvidersList
-        keyExtractor={(provider) => provider.id}
         data={providers}
+        keyExtractor={(provider) => provider.id}
+        ListHeaderComponent={
+          <ProvidersListTitle>Cabeleireiros</ProvidersListTitle>
+        }
         renderItem={({ item: provider }) => (
-          <ProviderContainer onPress={() => {}}>
+          <ProviderContainer
+            onPress={() => navigateToCreateAppointment(provider.id)}
+          >
             <ProviderAvatar source={{ uri: provider.avatar_url }} />
 
             <ProviderInfo>
