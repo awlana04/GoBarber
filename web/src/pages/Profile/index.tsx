@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
             : {}),
         };
 
-        const response = await api.put('/profile', data);
+        const response = await api.put('/profile', formData);
 
         updateUser(response.data);
 
@@ -94,7 +94,9 @@ const Profile: React.FC = () => {
           formRef.current?.setErrors({
             name: 'Nome obrigatório',
             email: 'E-mail obrigatório',
+            old_password: 'Senha atual obrigatória',
             password: 'No mínimo 6 dígitos',
+            password_confirmation: 'Confirmar senha obirgatória',
           });
         }
 
@@ -106,7 +108,7 @@ const Profile: React.FC = () => {
         });
       }
     },
-    [addToast, history],
+    [updateUser, history, addToast],
   );
 
   const handleAvatarChange = useCallback(
@@ -140,14 +142,7 @@ const Profile: React.FC = () => {
       </header>
 
       <Content>
-        <Form
-          ref={formRef}
-          initialData={{
-            name: user.name,
-            email: user.email,
-          }}
-          onSubmit={handleSubmit}
-        >
+        <Form initialData={user} ref={formRef} onSubmit={handleSubmit}>
           <AvatarInput>
             <img src={user.avatar_url} alt={user.name} />
             <label htmlFor="avatar">
@@ -163,18 +158,20 @@ const Profile: React.FC = () => {
           <Input name="email" icon={FiMail} placeholder="Email" />
 
           <Input
-            containerStyle={{ marginTop: 24 }}
             type="password"
             name="old_password"
             icon={FiLock}
+            containerStyle={{ marginTop: 24 }}
             placeholder="Senha atual"
           />
+
           <Input
             type="password"
-            name="old_password"
+            name="password"
             icon={FiLock}
             placeholder="Nova senha"
           />
+
           <Input
             type="password"
             name="password_confirmation"
